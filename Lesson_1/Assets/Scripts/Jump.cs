@@ -10,6 +10,7 @@ public class Jump : MonoBehaviour
     [SerializeField] private bool canDoubleJump = false;
 
     private Rigidbody body;
+    private bool jump = false;
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class Jump : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) == true && isGrounded == true)
         {
-            body.AddForce(jumpPower * Vector3.up, ForceMode.Impulse);
+            jump = true;
             isGrounded = false;
 
             if (canDoubleJump == true)
@@ -32,6 +33,15 @@ public class Jump : MonoBehaviour
                 }
                 StartCoroutine(ResetDoubleJumpAfterDelay(4f));
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (jump == true)
+        {
+            body.AddForce(jumpPower * Vector3.up, ForceMode.Impulse);
+            jump = false;
         }
     }
 

@@ -8,15 +8,17 @@ public class JumpTimeDisplay : MonoBehaviour
 {
     [SerializeField] private Jump jump;
     [SerializeField] private GameObject Number;
+    [SerializeField] private int timeOfDelay = 4;
 
     private Text text;
-    private int Time = 4;
+    private int time;
     private bool isUpdateText = false;
 
     private void Start()
     {        
         Number.SetActive(false);
         text = Number.GetComponent<Text>();
+        time = timeOfDelay;
     }
 
     private void Update()
@@ -34,17 +36,17 @@ public class JumpTimeDisplay : MonoBehaviour
         if (jump.GetCanDoubleJump() == false)
         {
             Number.SetActive(false);
-            Time = 4;
+            time = timeOfDelay;
         }
         else
         {
             Number.SetActive(true);
-            text.text = Convert.ToString(Time);
-            Time--;
+            text.text = Convert.ToString(time);
+            time--;
 
-            if (Time < 0)
+            if (time < 0)
             {
-                Time = 0;
+                time = 0;
             }
         }
         isUpdateText = false;
